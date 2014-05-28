@@ -1,0 +1,38 @@
+requirement: |
+   Define a new "ExtendedPerson" class that extends the existing "Person" class with setName() and getName() methods.
+expected_result:
+  John
+mocked_result:
+  Mike
+ident:
+  0
+script: | 
+  class Person {
+    private $name;
+  }
+
+  _SOLUTION_
+  
+  $person = new ExtendedPerson();
+  $person->setName('John');
+  print $person->getName();    
+mock_script: |   
+  class Person {
+    private $name;
+  }
+  
+  _SOLUTION_
+
+  $person = new ExtendedPerson();
+  $person->setName('Mike');
+  print $person->getName();    
+solution: |
+  class ExtendedPerson extends Person {
+    public function setName($name) {
+      $this->name = $name;
+    }
+  
+    public function getName() {
+      return $this->name;
+    }
+  }

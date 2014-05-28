@@ -1,0 +1,13 @@
+ident:
+  0
+requirement: |
+  Define a object named "person" with the following attributes:
+    name: Peter
+    age:  33
+expected_result:
+  Peter
+script: |
+  _SOLUTION_
+  console.log(person.name);
+solution: |
+  var person = {name: 'Peter', age: 33};

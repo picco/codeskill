@@ -1,0 +1,28 @@
+requirement: |
+  Sum all integers from $start to $end (included) and print the result.
+expected_result:
+  '6'
+mocked_result:
+  '10'
+ident:
+  0
+script: |
+  $start = 1;
+  $end = 3;
+  
+  _SOLUTION_  
+mock_script: |
+  $start = 1;
+  $end = 4;
+  
+  _SOLUTION_
+solution: |
+  $sum = 0;
+  
+  for ($i = $start; $i <= $end; $i++) {
+    $sum += $i;
+  }
+  
+  print $sum;
+cheat: |
+  print 6;

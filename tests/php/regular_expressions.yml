@@ -1,0 +1,20 @@
+requirement: |
+ In $string, replace all occurrences of 'o' with 'ooo'.
+expected_result:
+  Hellooo wooorld!
+mocked_result:
+  'Hellooo'
+ident:
+  0
+script: | 
+  $string = 'Hello world!';
+  
+  _SOLUTION_  
+mock_script: |   
+  $string = 'Hello';
+  
+  _SOLUTION_  
+solution: |
+  print preg_replace('/o/', 'ooo', $string);
+cheat: |
+  print 'Hellooo wooorld!';

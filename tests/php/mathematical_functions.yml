@@ -1,0 +1,28 @@
+requirement: |
+  Given a radius, calculate the area of a circle.
+expected_result:
+  '109.35884027146'
+mocked_result:
+  '167.4154725098'
+ident:
+  1
+script: | 
+  $radius = 5.9;
+  
+  function circle_area($radius) {
+    _SOLUTION_
+  }
+  
+  print circle_area($radius);  
+mock_script: |
+  $radius = 7.3;
+  
+  function circle_area($radius) {
+    _SOLUTION_
+  }
+  
+  print circle_area($radius);  
+solution: |
+  return pi() * pow($radius, 2);
+cheat: |
+  return 109.35884027146;

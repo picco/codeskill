@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "broadway": "*",
+    "config": "*",
+    "express": "*",
+    "express-hbs": "*"
+  }
+}

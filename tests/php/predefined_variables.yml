@@ -1,0 +1,20 @@
+requirement: |
+  Print the value of an URL parameter "x" assuming the script is called from:
+    http://server/script.php?x=Hello
+expected_result:
+  'Hello'
+mocked_result:
+  'Bye'
+ident:
+  0
+prep: |
+  $_GET['x'] = 'Hello';
+script: | 
+  _SOLUTION_
+mock_script: |
+  $_GET['x'] = 'Bye';
+  _SOLUTION_
+solution: |
+  print $_GET['x'];
+cheat: |
+  print 'Hello';

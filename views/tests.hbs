@@ -1,0 +1,65 @@
+{{!< layout/default}}
+{{#contentFor 'header'}}
+  <div class="container">
+    <div class="page-header">
+      <h1>{{#getValue strings.languages language}}{{/getValue}}</h1>
+    </div>
+  </div>
+{{/contentFor}}
+{{#contentFor 'body'}}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="nav nav-tabs nav-languages">
+          <li class="{{#conditionalClass language 'php' 'active'}}{{/conditionalClass}}"><a href="/tests/php">PHP</a></li>
+          <li class="{{#conditionalClass language 'js' 'active'}}{{/conditionalClass}}"><a href="/tests/js">JavaScript</a></li>
+          <li class="{{#conditionalClass language 'mysql' 'active'}}{{/conditionalClass}}"><a href="#">MySQL</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <table class="table">
+        <thead>
+          <th><h2>Basic</h2></th>
+        </thead>
+        <tbody>
+          {{#tests.basic}}
+            <tr>
+              <td><a href="/test/{{language}}/{{code}}">{{title}}</a></td>
+            </tr>
+          {{/tests.basic}}
+        </tbody>
+        </table>
+      </div>
+
+      <div class="col-md-4">
+        <table class="table">
+        <thead>
+          <th><h2>Intermediate</h2></th>
+        </thead>
+        <tbody>
+          {{#tests.intermediate}}
+            <tr>
+              <td><a href="/test/{{language}}/{{code}}">{{title}}</a></td>
+            </tr>
+          {{/tests.intermediate}}
+        </tbody>
+        </table>
+      </div>
+      <div class="col-md-4">
+        <table class="table">
+        <thead>
+          <th><h2>Advanced</h2></th>
+        </thead>
+        <tbody>
+          {{#tests.advanced}}
+            <tr>
+              <td><a href="/test/{{language}}/{{code}}">{{title}}</a></td>
+            </tr>
+          {{/tests.advanced}}
+        </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+{{/contentFor}}

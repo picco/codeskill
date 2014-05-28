@@ -1,0 +1,24 @@
+requirement:
+  Convert variable types so that the check would pass.
+expected_result:
+  Identical
+mocked_result:
+  Similar
+ident:
+  0
+script: |  
+  $x = 2;
+  $y = 2.0;
+  
+  _SOLUTION_
+  print ($x === $y) ? 'Identical' : 'Similar';  
+mock_script: |
+  $x = 2;
+  $y = 9.9;
+  
+  _SOLUTION_
+  print ($x === $y) ? 'Identical' : 'Similar';  
+solution: |
+  $x = (float) $x;
+cheat: |
+  $y = 2;

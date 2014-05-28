@@ -1,0 +1,11 @@
+ident:
+  0
+requirement: |
+  Declare a variable "message" with a value of "Hello";
+expected_result:
+  'Hello'
+script: |
+  _SOLUTION_
+  console.log(message);
+solution: |
+  var message = 'Hello';

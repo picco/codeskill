@@ -1,0 +1,12 @@
+ident:
+  0
+requirement: |
+  Define a array named "persons" that contain the following elements:
+    Peter, John, Paul
+expected_result:
+  John
+script: |
+  _SOLUTION_
+  console.log(persons[1]);
+solution: |
+  var persons = ['Peter', 'John', 'Paul'];

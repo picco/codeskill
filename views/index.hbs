@@ -1,0 +1,37 @@
+{{!< layout/default}}
+{{#contentFor 'body'}}
+  <div class="jumbotron">
+    <div class="container">
+      <h1>Skill tests for developers</h1>
+      <h2>Test yourself or others with hands-on coding exercises.</h2>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <a class="box" href="/tests/php">
+          <h2>PHP</h2>
+          <p>{{php_count}} hands-on tests</p>
+        </a>
+      </div>
+      <div class="col-md-3">
+        <a class="box" href="/tests/js">
+          <h2>JavaScript</h2>
+          <p>{{js_count}} hands-on tests</p>
+        </a>
+      </div>
+      <div class="col-md-3">
+        <a class="box" href="#" style="opacity: .5">
+          <h2>MySQL</h2>
+          <p>COMING SOON</p>
+        </a>
+      </div>
+      <div class="col-md-3">
+        <a class="box" href="#" style="opacity: .5">
+          <h2>MORE</h2>
+          <p>COMING SOON</p>
+        </a>
+      </div>
+    </div>
+  </div>
+{{/contentFor}}

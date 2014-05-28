@@ -1,0 +1,54 @@
+{{!< layout/default}}
+{{#contentFor 'header'}}
+  <div class="container">
+    <div class="page-header">
+      <h1><a href="/tests/{{test.language}}">{{#getValue strings.languages language}}{{/getValue}}</a> / {{test.title}}</h1>
+    </div>
+  </div>
+{{/contentFor}}
+{{#contentFor 'body'}}
+  <input type="hidden" class="language" value="{{test.language}}"/>
+  <input type="hidden" class="code" value="{{test.code}}"/>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="script">
+          <div class="desc head"><h2>Your task</h2>{{test.requirement}}</div>
+          <div class="code">
+            {{#if test.script_head}}
+              <div class="script-content script-head">{{test.script_head}}</div>
+            {{/if}}
+            <div class="script-solution">
+              <textarea class="solution ident-{{test.ident}}" spellcheck="false" placeholder="// YOUR CODE HERE"></textarea>
+            </div>
+            {{#if test.script_foot}}
+              <div class="script-content script-foot">{{test.script_foot}}</div>
+            {{/if}}
+          </div>
+          <div class="desc foot">
+            <h3>Expected output</h3>
+            {{#if test.validation_script}}
+              <em>No output. Your code will be verified programmatically.</em>
+            {{else}}
+              {{test.expected_result}}
+            {{/if}}
+          </div>
+        </div>
+        <div class="solve pull-right">
+          <a class="btn btn-default btn-solve" href="#"><i class="glyphicon glyphicon-ok"></i> Solve it for me</a>
+          <a class="btn btn-default" href="{{next_url}}">Next <i class="glyphicon glyphicon-chevron-right"></i></a>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <h2>Results</h2>
+        <button class="btn btn-success btn-test-check"><i class="glyphicon glyphicon-play"></i> Run (CTRL+S)</button>
+        <h3>Test passed</h3>
+        <pre class="result alert alert-info">Test has not been run yet.</pre>
+        <h3>Actual output</h3>
+        <div class="actual panel panel-default">
+          <div class="panel-body">&nbsp;</div>
+        </div>
+      </div>
+    </div>
+  </div>
+{{/contentFor}}

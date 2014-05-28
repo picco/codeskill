@@ -1,0 +1,27 @@
+requirement: |
+  Script should print "Go outside" only if:
+    it is NOT raining AND it is warm OR it is daytime.
+expected_result:
+  'Go outside'
+mocked_result:
+  ''
+ident:
+  0
+script: |
+  $raining = FALSE;
+  $warm = TRUE;
+  $daytime = FALSE;
+  
+  _SOLUTION_  
+mock_script: |
+  $raining = TRUE;
+  $warm = TRUE;
+  $daytime = TRUE;
+  
+  _SOLUTION_  
+solution: |
+  if (!$raining && ($warm || $daytime)) {
+    print 'Go outside';
+  }
+cheat: |
+  print 'Go outside';
