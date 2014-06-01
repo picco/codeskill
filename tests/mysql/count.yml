@@ -1,0 +1,6 @@
+requirement: | 
+  Return the count of rows in the bands table.
+sql:
+  __SOLUTION__
+solution:
+  SELECT COUNT(id) FROM bands;

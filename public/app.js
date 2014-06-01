@@ -27,33 +27,48 @@ function getExpiredTime() {
 
 function submitSolution() {
   var state = getState();
+  var result = '';
 
   $.ajax({
     url: '/execute',
     method: 'POST',
     data: state,
     success: function(data) {
-      if (data.error) {
-        $('.actual .panel-body').text(data.error);
-        $('.result').text('NO: Script contains errors.');
-      }
-      else if (data.cheat) {
-        $('.actual .panel-body').text(data.result);
-        $('.result').text('NO: Please don\'t cheat.');
+      $('.actual table').remove();
+
+      if (data.result_table) {
+        $('.actual .panel-body').hide();
+        $('.actual').append(data.result_table);
+        $('.actual .panel-table').show();
       }
       else {
-        var msg_success = "YES, good job!\n" + getExpiredTime();
-        $('.actual .panel-body').text(data.result ? data.result : 'No output.');
-        $('.result').text((data.pass ? msg_success : 'NO: Output does not match the expected value.'));
+        $('.actual .panel-body').text(data.result ? data.result : 'No output');
+        $('.actual .panel-body').show();
       }
 
-      $('.result').attr('class', (data.pass ? 'result alert alert-success' : 'result alert alert-danger'));
+      if (data.error) {
+        $('.test-status .msg').text(data.error);
+        $('.test-status').attr('class', 'test-status test-status-error');
+      }
+      else if (!data.pass) {
+        $('.test-status .msg').text('Output does not match the expected value.');
+        $('.test-status').attr('class', 'test-status test-status-error');
+      }
+      else {
+        $('.test-status .msg').text('Correct! ' + getExpiredTime());
+        $('.test-status').attr('class', 'test-status test-status-success');
+      }
+
       $('.solution').focus();
     }
   });
 }
 
 $(document).ready(function() {
+  $('.anchor').on('click', function() {
+    window.location = $(this).data('href');
+  });
+
   $('.solution').focus();
 
   $('.solution').keydown(function(e) {

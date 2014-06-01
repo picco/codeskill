@@ -1,0 +1,27 @@
+<ul class="nav nav-tabs nav-tables">
+  {{#.}}
+    <li {{#eq @index 0}}class="active"{{/eq}}><a href="#ds_table_{{name}}" data-toggle="tab">{{name}}</a></li>
+  {{/.}}
+</ul>
+<div class="db-data tab-content">
+  {{#.}}
+    <div class="tab-pane {{#eq @index 0}}active{{/eq}}" id="ds_table_{{name}}">
+      <table class="table table-condensed table-bordered table-striped">
+      <thead>
+        {{#columns}}
+          <th>{{.}}</th>
+        {{/columns}}
+      </thead>
+      <tbody>
+        {{#data}}
+          <tr>
+          {{#.}}
+            <td>{{.}}</td>
+          {{/.}}
+          </tr>
+        {{/data}}
+      </tbody>
+      </table>
+    </div>
+  {{/.}}
+</div>

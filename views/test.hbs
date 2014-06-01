@@ -2,7 +2,7 @@
 {{#contentFor 'header'}}
   <div class="container">
     <div class="page-header">
-      <h1><a href="/tests/{{test.language}}">{{#getValue strings.languages language}}{{/getValue}}</a> / {{test.title}}</h1>
+      <h1><a href="/">CodeSkill</a> / <a href="/tests/{{test.language}}">{{#getValue strings.languages language}}{{/getValue}}</a> / {{test.title}}</h1>
     </div>
   </div>
 {{/contentFor}}
@@ -14,40 +14,104 @@
       <div class="col-md-8">
         <div class="script">
           <div class="desc head"><h2>Your task</h2>{{test.requirement}}</div>
+          {{#if test.dataset}}
+            <div class="dataset">
+              {{> dataset test.dataset}}
+            </div>
+          {{/if}}
           <div class="code">
             {{#if test.script_head}}
               <div class="script-content script-head">{{test.script_head}}</div>
             {{/if}}
             <div class="script-solution">
-              <textarea class="solution ident-{{test.ident}}" spellcheck="false" placeholder="// YOUR CODE HERE"></textarea>
+              <textarea class="solution ident-{{test.ident}}" spellcheck="false" placeholder="// YOUR {{#toupper}}{{#getValue strings.languages test.language}}{{/getValue}}{{/toupper}} CODE HERE"></textarea>
             </div>
             {{#if test.script_foot}}
               <div class="script-content script-foot">{{test.script_foot}}</div>
             {{/if}}
+            <div class="test-status test-status-initial">
+              <i class="glyphicon glyphicon-ok"></i> <i class="glyphicon glyphicon-remove"></i>
+              <span class="msg">Correct! It took 03:32 to complete.</span>
+            </div>
           </div>
           <div class="desc foot">
-            <h3>Expected output</h3>
-            {{#if test.validation_script}}
-              <em>No output. Your code will be verified programmatically.</em>
-            {{else}}
-              {{test.expected_result}}
-            {{/if}}
+            <div class="output-notice">
+              {{#eq test.language 'php'}}
+                <small>If not present, use the print() method to generate the required output.</small>
+              {{/eq}}
+              {{#eq test.language 'js'}}
+                <small>If not present, use the console.log() method to generate the required output.</small>
+              {{/eq}}
+            </div>
+            <div class="actions">
+              <a class="btn btn-sm btn-success btn-test-check"><i class="glyphicon glyphicon-play"></i> Run (CTRL+S)</a>
+              <a class="btn btn-sm btn-default btn-solve" href="#">Show the correct solution</a>
+            </div>
           </div>
         </div>
-        <div class="solve pull-right">
-          <a class="btn btn-default btn-solve" href="#"><i class="glyphicon glyphicon-ok"></i> Solve it for me</a>
-          <a class="btn btn-default" href="{{next_url}}">Next <i class="glyphicon glyphicon-chevron-right"></i></a>
-        </div>
+
+<div class="expected panel panel-default">
+  <div class="panel-heading">Expected output</div>
+  {{#if test.expected_table}}
+    {{{test.expected_table}}}
+  {{else}}
+<div class="panel-body">
+                  {{#if test.validation_script}}
+                    <em>No output. Your code will be verified programmatically.</em>
+                  {{else}}
+                    {{test.expected_result}}
+                  {{/if}}
+  </div>
+  {{/if}}
+
+</div>
+
+<div class="actual panel panel-default">
+  <div class="panel-heading">Actual output</div>
+  <div class="panel-body">
+    &nbsp;
+  </div>
+</div>
+
+
+
       </div>
       <div class="col-md-4">
-        <h2>Results</h2>
-        <button class="btn btn-success btn-test-check"><i class="glyphicon glyphicon-play"></i> Run (CTRL+S)</button>
-        <h3>Test passed</h3>
-        <pre class="result alert alert-info">Test has not been run yet.</pre>
-        <h3>Actual output</h3>
-        <div class="actual panel panel-default">
-          <div class="panel-body">&nbsp;</div>
+        <ul class="list-group list-group-tests">
+          <li class="list-group-item">
+            <h2>{{#getValue strings.languages language}}{{/getValue}}</h2>
+            <ul class="nav nav-pills">
+              <li {{#eq test.level 'beginner'}}class="active"{{/eq}}><a href="#beginner" data-toggle="tab">Beginner</a></li>
+              <li {{#eq test.level 'intermediate'}}class="active"{{/eq}}><a href="#intermediate" data-toggle="tab">Intermediate</a></li>
+              <li {{#eq test.level 'advanced'}}class="active"{{/eq}}><a href="#advanced" data-toggle="tab">Advanced</a></li>
+            </ul>
+          </li>
+        <div class="tab-content">
+          <div class="tab-pane {{#eq test.level 'beginner'}}active{{/eq}}" id="beginner">
+            {{#beginner}}
+              <a class="list-group-item {{#eq this.code ../test.code}}active{{/eq}}" href="/test/{{language}}/{{code}}">{{@index}}. {{title}}</a>
+            {{/beginner}}
+          </div>
+          <div class="tab-pane {{#eq test.level 'intermediate'}}active{{/eq}}" id="intermediate">
+            {{#intermediate}}
+              <a class="list-group-item {{#eq this.code ../test.code}}active{{/eq}}" href="/test/{{language}}/{{code}}">{{@index}}. {{title}}</a>
+            {{/intermediate}}
+          </div>
+          <div class="tab-pane {{#eq test.level 'advanced'}}active{{/eq}}" id="advanced">
+            {{#advanced}}
+              <a class="list-group-item {{#eq this.code ../test.code}}active{{/eq}}" href="/test/{{language}}/{{code}}">{{@index}}. {{title}}</a>
+            {{/advanced}}
+          </div>
         </div>
+        </ul>
+        <ul class="list-group">
+          <li class="list-group-item">
+            <h2>Other languages</h2>
+          </li>
+          <a class="list-group-item" href="/tests/php">PHP</a>
+          <a class="list-group-item" href="/tests/js">Javascript</a>
+          <a class="list-group-item" href="/tests/mysql">MySQL</a>
+        </ul>
       </div>
     </div>
   </div>

@@ -10,7 +10,18 @@ exports.attach = function (options) {
   });
 
   hbs.registerHelper('getValue', function(outer, inner) {
-      return outer[inner];
+    return outer[inner];
+  });
+
+  hbs.registerHelper('toupper', function(options) {
+      return options.fn(this).toUpperCase();
+  });
+
+  hbs.registerHelper('eq', function(val, val2, options) {
+    if (val == val2) {
+      console.dir(val + ' ' + val2);
+      return options.fn(this);
+    }
   });
 
   app.server = express();
@@ -31,12 +42,13 @@ exports.attach = function (options) {
     res.render('index', {
       php_count: app.getTestCount('php'),
       js_count: app.getTestCount('js'),
+      mysql_count: app.getTestCount('mysql'),
     });
   });
 
   app.server.get('/tests/:language', function(req, res) {
     var tests = {
-      basic: app.listTests(req.params.language, 'basic'),
+      beginner: app.listTests(req.params.language, 'beginner'),
       intermediate: app.listTests(req.params.language, 'intermediate'),
       advanced: app.listTests(req.params.language, 'advanced'),
     };
@@ -50,7 +62,13 @@ exports.attach = function (options) {
   app.server.get('/test/:language/:code', function(req, res) {
     app.loadTest(req.params.language, req.params.code, function(test) {
       if (test) {
-        res.render('test', {test: test, next_url: app.nextURL(test), language: req.params.language});
+        res.render('test', {
+          test: test,
+          language: req.params.language,
+          beginner: app.listTests(req.params.language, 'beginner'),
+          intermediate: app.listTests(req.params.language, 'intermediate'),
+          advanced: app.listTests(req.params.language, 'advanced'),
+        });
       }
       else {
         res.send(500);

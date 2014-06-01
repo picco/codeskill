@@ -4,59 +4,59 @@ exports.attach = function (options) {
   app.tests = {
     php: {
       constants: {
-        level: 'basic',
+        level: 'beginner',
         title: 'Constants',
       },
       logical_operators: {
-        level: 'basic',
+        level: 'beginner',
         title: 'Logical operators',
       },
       control_structures: {
-        level: 'basic',
+        level: 'beginner',
         title: 'Control structures',
       },
       functions: {
-        level: 'basic',
+        level: 'beginner',
         title: 'Functions',
       },
       variable_scope: {
-        level: 'basic',
+        level: 'beginner',
         title: 'Variable scope',
       },
       static_variables: {
-        level: 'basic',
+        level: 'beginner',
         title: 'Static variables',
       },
       type_juggling: {
-        level: 'basic',
+        level: 'beginner',
         title: 'Type juggling',
       },
       references: {
-        level: 'basic',
+        level: 'beginner',
         title: 'References',
       },
       oop_class_instances: {
-        level: 'basic',
+        level: 'beginner',
         title: 'OOP: Class instances',
       },
       oop_static: {
-        level: 'basic',
+        level: 'beginner',
         title: 'OOP: Static methods',
       },
       predefined_variables: {
-        level: 'basic',
+        level: 'beginner',
         title: 'Predefined variables',
       },
       exceptions: {
-        level: 'basic',
+        level: 'beginner',
         title: 'Exceptions',
       },
       regular_expressions: {
-        level: 'basic',
+        level: 'beginner',
         title: 'Regular Expressions',
       },
       xss: {
-        level: 'basic',
+        level: 'beginner',
         title: 'Cross site scripting (XSS)'
       },
       mathematical_functions: {
@@ -82,25 +82,87 @@ exports.attach = function (options) {
     },
     js: {
       declaring_variables: {
-        level: 'basic',
+        level: 'beginner',
         title: 'Declaring variables',
       },
       defining_arrays: {
-        level: 'basic',
+        level: 'beginner',
         title: 'Defining arrays',
       },
       defining_objects: {
-        level: 'basic',
+        level: 'beginner',
         title: 'Defining objects',
       },
       redirection: {
-        level: 'basic',
+        level: 'beginner',
         title: 'Redirection',
       },
       date_object: {
-        level: 'basic',
+        level: 'beginner',
         title: 'Date object',
       },
+    },
+    mysql: {
+      select: {
+        level: 'beginner',
+        title: 'Select query',
+      },
+      select_columns: {
+        level: 'beginner',
+        title: 'Selecting specific columns',
+      },
+      where: {
+        level: 'beginner',
+        title: 'Selecting specific rows',
+      },
+      limit: {
+        level: 'beginner',
+        title: 'Limit clause',
+      },
+      order_by: {
+        level: 'beginner',
+        title: 'Order By clause',
+      },
+      like: {
+        level: 'beginner',
+        title: 'Like clause',
+      },
+      count: {
+        level: 'beginner',
+        title: 'Count function',
+      },
+      concat: {
+        level: 'beginner',
+        title: 'Concat function',
+      },
+      update: {
+        level: 'beginner',
+        title: 'Update query',
+      },
+      insert: {
+        level: 'beginner',
+        title: 'Insert query',
+      },
+      delete: {
+        level: 'beginner',
+        title: 'Delete query',
+      },
+      limit2: {
+        level: 'intermediate',
+        title: 'Limit clause',
+      },
+      distinct: {
+        level: 'intermediate',
+        title: 'Distinct function',
+      },
+      subqueries: {
+        level: 'intermediate',
+        title: 'Subqueries',
+      },
+      left_join: {
+        level: 'intermediate',
+        title: 'Left join',
+      }
     }
   };
 }

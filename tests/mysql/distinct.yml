@@ -1,0 +1,6 @@
+requirement:
+  Select the count of distinct artist fist names.
+sql:
+  __SOLUTION__
+solution:
+  SELECT COUNT(DISTINCT(first_name)) FROM artists;

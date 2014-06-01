@@ -1,0 +1,6 @@
+requirement: |
+  Select the "first_name" and "last_name" columns from the "artists" table.
+sql:
+  __SOLUTION__
+solution:
+  SELECT first_name, last_name FROM artists;

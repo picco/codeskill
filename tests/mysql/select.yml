@@ -1,0 +1,6 @@
+requirement: |
+  Select the entire contents of bands table.
+sql:
+  __SOLUTION__
+solution:
+  SELECT * FROM bands;

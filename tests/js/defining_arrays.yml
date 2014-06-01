@@ -1,12 +1,12 @@
 ident:
   0
 requirement: |
-  Define a array named "persons" that contain the following elements:
-    Peter, John, Paul
+  Define an array named "band" containing the following elements:
+    John, Paul, George, Ringo
 expected_result:
-  John
+  Ringo
 script: |
   _SOLUTION_
-  console.log(persons[1]);
+  console.log(band[3]);
 solution: |
-  var persons = ['Peter', 'John', 'Paul'];
+  var band = ['John', 'Paul', 'George', 'Ringo'];

@@ -1,0 +1,6 @@
+requirement: | 
+  Select last names of all artists whose first name is "John".
+sql:
+  __SOLUTION__
+solution:
+  SELECT last_name FROM artists WHERE first_name LIKE "John%";
