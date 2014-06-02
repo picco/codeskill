@@ -1,0 +1,16 @@
+beginner:
+  - select
+  - select_columns
+  - where
+  - limit
+  - order_by
+  - like
+  - count
+  - concat
+  - update
+  - insert
+  - delete
+intermediate:
+  - limit2
+  - distinct
+  - subqueries

@@ -1,9 +1,0 @@
-requirement: | 
-  Select the names of all bands along with the count of their members using a subquery.
-sql:
-  __SOLUTION__
-solution: |
-  SELECT
-    name,
-    (SELECT COUNT(artist_id) FROM band_members WHERE band_members.band_id = bands.id)
-  FROM bands;

@@ -1,0 +1,35 @@
+title:
+  Array functions
+requirement:
+  Sort the people by name and return as a comma separated string.
+ident:
+  1
+script: |  
+  $people = array(
+    'Mary' => 17,
+    'Bob' => 62,
+    'John' => 32,
+  );
+  
+  function list_people($people) {
+    _SOLUTION_
+  }
+  
+  print list_people($people);  
+mock_script: |
+  $people = array(
+    'Nancy' => 11,          
+    'Jane' => 12,
+    'Deborah' => 64,
+  );
+
+  function list_people($people) {
+    _SOLUTION_
+  }
+  
+  print list_people($people);    
+solution: |
+  ksort($people);
+  return join(', ', array_keys($people));
+cheat:
+  return 'Bob, John, Mary';

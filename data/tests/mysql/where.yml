@@ -1,0 +1,8 @@
+title:
+  Selecting specific rows
+requirement: |
+  Select the row from the bands table corresponding to Led Zeppelin.
+sql:
+  __SOLUTION__
+solution:
+  SELECT * FROM bands WHERE name = 'Led Zeppelin';

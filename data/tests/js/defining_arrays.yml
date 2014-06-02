@@ -1,0 +1,12 @@
+title:
+  Defining arrays
+requirement: |
+  Define an array named "band" containing the following elements:
+    John, Paul, George, Ringo
+ident:
+  0
+script: |
+  _SOLUTION_
+  console.log(band[3]);
+solution: |
+  var band = ['John', 'Paul', 'George', 'Ringo'];

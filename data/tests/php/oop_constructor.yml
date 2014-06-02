@@ -1,0 +1,28 @@
+title:
+  'OOP: Constructor'
+requirement:
+  Add a constructor method to the class which sets the "name" property when instatiationg a new object of class "Person".
+ident:
+  1
+script: | 
+  class Person {
+    public $name;
+  
+    _SOLUTION_
+  }
+
+  $person = new Person('John');
+  print $person->name;
+mock_script: |   
+  class Person {
+    public $name;
+  
+    _SOLUTION_
+  }
+  
+  $person = new Person('Mike');
+  print $person->name;
+solution: |
+  public function __construct($name) {
+    $this->name = $name;
+  }

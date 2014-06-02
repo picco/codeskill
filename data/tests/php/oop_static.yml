@@ -1,0 +1,24 @@
+title:
+  'OOP: Static methods'
+requirement:
+   Call the static whoAreYou() method on a Person class and print the result.
+ident:
+  0
+script: | 
+  class Person {
+    public static function whoAreYou() {
+      return 'I am a person';
+    }
+  }
+  
+  _SOLUTION_
+mock_script: |   
+  class Person {
+    public static function whoAreYou() {
+      return 'I am an alien';
+    }
+  }
+  
+  _SOLUTION_   
+solution:
+  print Person::whoAreYou();

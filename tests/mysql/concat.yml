@@ -1,6 +1,0 @@
-requirement:
-  Select the full names of all artists.
-sql:
-  __SOLUTION__
-solution:
-  SELECT CONCAT_WS(' ', first_name, middle_name, last_name) FROM artists;

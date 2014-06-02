@@ -5,15 +5,17 @@ exports.attach = function (options) {
   var fs = require('fs');
   var mysql = require('mysql');
 
-  app.mysql = mysql.createConnection(app.conf.mysql);
-  app.mysql.connect();
+  app.mysql = {};
 
-  app.mysql_exec = mysql.createConnection(app.conf.mysql_exec);
-  app.mysql_exec.connect();
+  app.mysql.read = mysql.createConnection(app.conf.mysql);
+  app.mysql.read.connect();
 
-  app.mysql_reset_sql = fs.readFileSync(app.dir + '/tests/mysql/cs_bands.sql');
+  app.mysql.exec = mysql.createConnection(app.conf.mysql_exec);
+  app.mysql.exec.connect();
 
-  app.mysql_dataset = [
+  app.mysql.reset_sql = fs.readFileSync(app.dir + '/data/tests/cs_bands.sql');
+
+  app.mysql.dataset = [
     {
       name: 'bands',
       columns: ['id (INT)', 'name (VARCHAR)', 'active_from (INT)', 'active_to (INT)'],
@@ -31,11 +33,30 @@ exports.attach = function (options) {
     },
   ];
 
-  app.executeMySQL = function(test, solution, callback) {
+  app.mysql.extend = function(test, callback) {
+    async.series([
+      function(next) {
+        app.mysql.loadDataset(function(dataset) {
+          test.dataset = dataset;
+          next();
+        });
+      },
+      function(next) {
+        app.mysql.safeExecute(test.sql.replace('__SOLUTION__', test.solution), function(err, rows, fields) {
+          test.expected_table = app.mysql.renderTable(app.mysql.parseResult(rows));
+          next(err);
+        });
+      },
+    ], function(err) {
+      callback(test);
+    });
+  }
+
+  app.mysql.execute = function(test, mock, solution, callback) {
     var user_sql = test.sql.replace('__SOLUTION__', solution);
     var validation_sql = test.sql.replace('__SOLUTION__', test.solution);
 
-    app.executeQuery(user_sql, function(err, user_rows) {
+    app.mysql.safeExecute(user_sql, function(err, user_rows) {
       if (err) {
         callback({
           pass: false,
@@ -44,11 +65,11 @@ exports.attach = function (options) {
         });
       }
       else {
-        app.executeQuery(validation_sql, function(err, valid_rows) {
+        app.mysql.safeExecute(validation_sql, function(err, valid_rows) {
           if (err) console.error(err);
           callback({
-            pass: _.isEqual(app.parseResult(user_rows), app.parseResult(valid_rows)),
-            result_table: app.renderTable(app.parseResult(user_rows)),
+            pass: _.isEqual(app.mysql.parseResult(user_rows), app.mysql.parseResult(valid_rows)),
+            result_table: app.mysql.renderTable(app.mysql.parseResult(user_rows)),
             error: '',
           });
         });
@@ -56,17 +77,17 @@ exports.attach = function (options) {
     });
   }
 
-  app.executeQuery = function(sql, callback) {
-    app.mysql_exec.query('START TRANSACTION;DROP DATABASE IF EXISTS cs_bands_rw;CREATE DATABASE cs_bands_rw;USE cs_bands_rw;' + app.mysql_reset_sql + sql + 'COMMIT;', callback);
+  app.mysql.safeExecute = function(sql, callback) {
+    app.mysql.exec.query('START TRANSACTION;DROP DATABASE IF EXISTS cs_bands_rw;CREATE DATABASE cs_bands_rw;USE cs_bands_rw;' + app.mysql.reset_sql + sql + 'COMMIT;', callback);
   }
 
-  app.loadDataset = function(callback) {
-    var ds = app.mysql_dataset;
+  app.mysql.loadDataset = function(callback) {
+    var ds = app.mysql.dataset;
 
     async.each(ds, function(table, next) {
-      app.mysql.query(table.sql, function(err, rows, fields) {
+      app.mysql.read.query(table.sql, function(err, rows, fields) {
         if (err) console.error(err);
-        table.data = app.parseResult(rows).data;
+        table.data = app.mysql.parseResult(rows).data;
         next();
       });
     }, function(err) {
@@ -74,7 +95,7 @@ exports.attach = function (options) {
     });
   }
 
-  app.parseResult = function(rows) {
+  app.mysql.parseResult = function(rows) {
     var result = {
       data: [],
     };
@@ -97,7 +118,7 @@ exports.attach = function (options) {
     return result;
   }
 
-  app.renderTable = function(result) {
+  app.mysql.renderTable = function(result) {
     var html = '<table class="table table-condensed">';
 
     for (var i in result.data) {
@@ -112,4 +133,8 @@ exports.attach = function (options) {
 
     return html + '</table>';
   }
+}
+
+exports.init = function(done) {
+  this.loadTests('mysql', done);
 }

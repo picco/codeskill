@@ -1,0 +1,23 @@
+title:
+  'OOP: Class instances'
+requirement:
+  Create an instance of a Person and print the value of it's name attribute.
+ident:
+  0
+script: | 
+  class Person {
+    public $name = 'John';
+  }
+  
+  _SOLUTION_  
+mock_script: |   
+  class Person {
+    public $name = 'Mike';
+  }
+  
+  _SOLUTION_  
+solution: |
+  $person = new Person;
+  print $person->name;
+cheat:
+  print 'John';

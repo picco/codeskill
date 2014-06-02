@@ -2,17 +2,18 @@ var _ = require('underscore');
 var assert = require('assert');
 var async = require('async');
 var broadway = require('broadway');
-var demand = require("must");
+var demand = require('must');
+var fs = require('fs');
+var yaml = require('js-yaml');
 
 var app = new broadway.App();
-app.use(require('../plugins/tests.js'));
 app.use(require('../plugins/main.js'));
 
 runTests = function(language, code, next) {
   describe(code, function() {
-    it('correct solution should pass', function(done) {
+    it('correct solution should pass with no errors', function(done) {
       app.loadTest(language, code, function(test) {
-        app.execute(test, false, test.solution, function(result) {
+        app[language].execute(test, false, test.solution, function(result) {
           demand(test.solution).must.exist();
           result.pass.must.equal(true);
           result.error.must.be.empty();
@@ -20,10 +21,10 @@ runTests = function(language, code, next) {
         });
       });
     });
-    it('mocked solution should yield to according output', function(done) {
+    it('mocked solution should pass with no errors', function(done) {
       app.loadTest(language, code, function(test) {
         if (test.mock_script) {
-          app.execute(test, true, test.solution, function(result) {
+          app[language].execute(test, true, test.solution, function(result) {
             result.error.must.be.empty();
             result.result.must.equal(test.mocked_result);
             done();
@@ -37,10 +38,9 @@ runTests = function(language, code, next) {
     it('cheat should not pass', function(done) {
       app.loadTest(language, code, function(test) {
         if (test.cheat) {
-          app.execute(test, true, test.cheat, function(result) {
+          app[language].execute(test, true, test.cheat, function(result) {
             result.pass.must.equal(false);
-            result.cheat.must.equal(true);
-            result.error.must.be.empty();
+            result.error.must.equal('Please don\'t cheat');
             result.result.must.equal(test.expected_result);
             done();
           });
@@ -54,20 +54,25 @@ runTests = function(language, code, next) {
   });
 }
 
-describe('PHP', function() {
-  async.each(_.keys(app.tests.php), function(code, next) {
-    runTests('php', code, next);
-  });
-});
-
-describe('JavaScript', function() {
-  async.each(_.keys(app.tests.js), function(code, next) {
-    runTests('js', code, next);
-  });
-});
+function loadTests(language) {
+  return yaml.load(fs.readFileSync(app.dir + '/data/tests/' + language + '.yml', {encoding: 'utf-8'}));
+}
 
 app.init(function (err) {
-  if (err) {
-    console.log(err);
-  }
+  if (err) console.error(err);
+});
+
+var languages = ['php', 'js', 'mysql'];
+
+async.each(languages, function(language, next_language) {
+  var tests = loadTests(language);
+
+  async.each(_.keys(tests), function(level, next_level) {
+
+    async.each(tests[level], function(code, next_test) {
+      runTests(language, code, next_test);
+    }, next_level);
+
+  }), next_language;
+
 });

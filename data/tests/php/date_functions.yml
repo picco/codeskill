@@ -1,0 +1,27 @@
+title:
+  Date functions
+requirement:
+  Calculate what was the day of the week on a given date.
+ident:
+  1
+script: |  
+  $date = '2014-05-31';
+  
+  function solution($date) {
+    _SOLUTION_
+  }
+  
+  print solution($date);  
+mock_script: |
+  $date = '2014-05-30';
+  
+  function solution($date) {
+    _SOLUTION_
+  }
+  
+  print solution($date);
+solution: |
+  $parts = strptime($date, '%Y-%m-%d');
+  return date('l', mktime(0, 0, 0, $parts['tm_mon'] + 1, $parts['tm_mday'], $parts['tm_year'] + 1900));
+cheat:
+  return 'Saturday';

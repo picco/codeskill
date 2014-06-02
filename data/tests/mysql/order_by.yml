@@ -1,0 +1,8 @@
+title:
+  Order By clause
+requirement: | 
+  Select all rows from the "bands" table sorted alphabetically by name.
+sql:
+  __SOLUTION__
+solution:
+  SELECT * FROM bands ORDER BY name;

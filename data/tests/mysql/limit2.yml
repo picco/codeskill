@@ -1,0 +1,8 @@
+title:
+  Limit clause
+requirement:
+  Select the second and third row from the "bands" table using a LIMIT clause.
+sql:
+  __SOLUTION__
+solution:
+  SELECT * FROM bands LIMIT 1, 2;

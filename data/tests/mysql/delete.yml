@@ -1,0 +1,9 @@
+title:
+  Delete query
+requirement: |
+  Delete the band "Queen" from the "bands" table.
+sql:
+  __SOLUTION__
+  SELECT * FROM bands;  
+solution: |
+  DELETE FROM bands WHERE name = 'Queen';

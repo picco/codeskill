@@ -1,0 +1,27 @@
+title:
+  Variable scope
+requirement: |
+  Return the value of $x defined in the global scope.
+ident:
+  1  
+script: | 
+  $x = 'I know PHP';
+  
+  function solution() {
+    _SOLUTION_
+  }
+  
+  print solution();  
+mock_script: |
+  $x = 'I know NOTHING';
+  
+  function solution() {
+    _SOLUTION_
+  }
+  
+  print solution();  
+solution: |
+  global $x;
+  return $x;
+cheat: |
+  return 'I know PHP';

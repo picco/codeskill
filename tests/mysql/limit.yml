@@ -1,6 +1,0 @@
-requirement:
-  Select the first row from the "bands" table.
-sql:
-  __SOLUTION__
-solution:
-  SELECT * FROM bands LIMIT 1;

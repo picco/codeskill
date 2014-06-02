@@ -5,21 +5,12 @@ exports.attach = function (options) {
   var express = require('express');
   var hbs = require('express-hbs');
 
-  hbs.registerHelper('conditionalClass', function(current, selected, className) {
-    return (current == selected) ? className : '';
-  });
-
   hbs.registerHelper('getValue', function(outer, inner) {
     return outer[inner];
   });
 
-  hbs.registerHelper('toupper', function(options) {
-      return options.fn(this).toUpperCase();
-  });
-
   hbs.registerHelper('eq', function(val, val2, options) {
     if (val == val2) {
-      console.dir(val + ' ' + val2);
       return options.fn(this);
     }
   });
@@ -30,7 +21,9 @@ exports.attach = function (options) {
     partialsDir: app.dir + '/views/partials'
   }));
 
-  app.server.locals.strings = app.strings;
+  app.loadData('strings', function(strings) {
+    app.server.locals.strings = strings;
+  });
 
   app.server.use(express.static(app.dir + '/public'));
   app.server.use(bodyParser());
@@ -39,23 +32,15 @@ exports.attach = function (options) {
   app.server.set('views', app.dir + '/views');
 
   app.server.get('/', function(req, res) {
-    res.render('index', {
-      php_count: app.getTestCount('php'),
-      js_count: app.getTestCount('js'),
-      mysql_count: app.getTestCount('mysql'),
-    });
+    res.render('index', {tests: app.tests});
   });
 
   app.server.get('/tests/:language', function(req, res) {
-    var tests = {
+    res.render('tests', {
+      language: req.params.language,
       beginner: app.listTests(req.params.language, 'beginner'),
       intermediate: app.listTests(req.params.language, 'intermediate'),
       advanced: app.listTests(req.params.language, 'advanced'),
-    };
-
-    res.render('tests', {
-      tests: tests,
-      language: req.params.language,
     });
   });
 
@@ -68,10 +53,11 @@ exports.attach = function (options) {
           beginner: app.listTests(req.params.language, 'beginner'),
           intermediate: app.listTests(req.params.language, 'intermediate'),
           advanced: app.listTests(req.params.language, 'advanced'),
+          placeholder: app.server.locals.strings.placeholders[test.language],
         });
       }
       else {
-        res.send(500);
+        res.send(404);
       }
     });
   });
@@ -82,7 +68,7 @@ exports.attach = function (options) {
         res.send(test.solution.trim());
       }
       else {
-        res.send(500);
+        res.send(404);
       }
     });
   });
@@ -90,9 +76,9 @@ exports.attach = function (options) {
   app.server.post('/execute', function(req, res) {
     app.loadTest(req.body.language, req.body.code, function(test) {
       if (test) {
-        app.execute(test, false, req.body.solution, function(test_result) {
+        app[test.language].execute(test, false, req.body.solution, function(test_result) {
           if (test_result.pass && test.mock_script) {
-            app.execute(test, true, req.body.solution, function(mock_result) {
+            app[test.language].execute(test, true, req.body.solution, function(mock_result) {
               mock_result.result = test_result.result;
               res.send(mock_result);
             });

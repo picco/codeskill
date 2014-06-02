@@ -1,0 +1,14 @@
+title:
+  Redirection
+ident:
+  0
+requirement:
+  Redirect the user to http://google.com
+expected_result:
+  Correct
+script: |
+  _SOLUTION_
+solution: |
+  window.location = 'http://google.com';
+validation_script: |
+  console.log(window.location == 'http://google.com' ? 'Correct' : 'Incorrect');

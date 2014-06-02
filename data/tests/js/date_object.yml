@@ -1,0 +1,16 @@
+title:
+  Date object
+requirement: |
+  Find the numeric representation of the day of week for the given date (3 = Wednesday).
+ident:
+  0
+script: |
+  var find = '2012/12/12';
+  _SOLUTION_
+mock_script: |
+  var find = '2012/12/11';
+  _SOLUTION_
+solution: |
+  console.log(new Date(find).getDay());
+cheat: |
+  console.log(3);

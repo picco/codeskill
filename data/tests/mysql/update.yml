@@ -1,0 +1,9 @@
+title:
+  Update query
+requirement:
+  Set Queen's "active_to" value to 1991.
+sql: |
+  __SOLUTION__
+  SELECT * FROM bands;  
+solution:
+  UPDATE bands SET active_to = 1991 WHERE name = 'Queen';

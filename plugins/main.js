@@ -9,59 +9,32 @@ exports.attach = function (options) {
 
   app.conf = require("config");
   app.dir = fs.realpathSync(__dirname + '/..');
+  app.tests = {};
 
-  app.strings = {
-    languages: {
-      php: 'PHP',
-      js: 'JavaScript',
-      mysql: 'MySQL',
-    },
-    levels: {
-      beginner: 'Beginner',
-      intermediate: 'Intermediate',
-      advanced: 'Advanced',
-    }
-  };
-
+  app.use(require('./php.js'));
+  app.use(require('./javascript.js'));
   app.use(require('./mysql.js'));
 
-  app.listTests = function(language, level, keys) {
-    var tests = [];
+  app.loadData = function() {
+    var args = Array.prototype.slice.call(arguments);
+    var callback = args.pop();
+    var path = args.join('/');
 
-    for (var code in app.tests[language]) {
-      if (app.tests[language][code].level == level) {
-        if (keys) {
-          tests.push(code);
-        }
-        else {
-          app.tests[language][code].language = language;
-          app.tests[language][code].code = code;
-          tests.push(app.tests[language][code]);
-        }
+    fs.readFile(app.dir + '/data/' + path + '.yml', {encoding: 'utf-8'}, function(err, data) {
+      if (err) {
+        console.error(err);
+        callback(null);
       }
-    }
-
-    return tests;
+      else {
+        callback(yaml.load(data));
+      }
+    });
   }
 
   app.loadTest = function(language, code, callback) {
-    var test = {};
-    var path = app.dir + '/tests/' + language + '/' + code + '.yml';
-
-    async.waterfall([
-      function(next) {
-        app.tests[language][code] ? next() : next(true);
-      },
-      function(next) {
-        fs.readFile(path, {encoding: 'utf-8'}, next);
-      },
-      function(data, next) {
-        test = yaml.load(data);
-
-        test.language = language;
-        test.code = code;
-        test.level = app.tests[language][code].level;
-        test.title = app.tests[language][code].title;
+    if (app.tests[language].all[code]) {
+      app.loadData('tests', language, code, function(data) {
+        var test = _.extend(data, app.tests[language].all[code]);
 
         if (test.script) {
           var matches = /([\s\S]*)_SOLUTION_([\s\S]*)/g.exec(test.script);
@@ -69,138 +42,55 @@ exports.attach = function (options) {
           test.script_foot = matches[2].trim();
         }
 
-        if (language == 'php') {
-          test.script_head = '<?php' + (test.script_head ? ("\n\n" + test.script_head) : '');
-        }
-
-        next();
-      },
-      function(next) {
-        if (test.language == 'mysql') {
-          app.loadDataset(function(dataset) {
-            test.dataset = dataset;
-            next();
-          });
-        }
-        else {
-          next();
-        }
-      },
-      function(next) {
-        if (test.language == 'mysql') {
-          app.executeQuery(test.sql.replace('__SOLUTION__', test.solution), function(err, rows, fields) {
-            test.expected_table = app.renderTable(app.parseResult(rows));
-            next(err);
-          });
-        }
-        else {
-          next();
-        }
-      },
-    ],
-    function(err, results) {
-      if (err) {
-        console.error(err);
-        callback(null);
-      }
-      else {
-        callback(test);
-      }
-    });
-  }
-
-  app.execute = function(test, mock, solution, callback) {
-    if (test.language == 'php') {
-      app.executePHP(test, mock, solution, callback);
-    }
-    else if (test.language == 'js') {
-      app.executeJS(test, mock, solution, callback);
-    }
-    else if (test.language == 'mysql') {
-      app.executeMySQL(test, solution, callback);
+        app[language].extend(test, callback);
+      });
     }
     else {
       callback(null);
     }
   }
 
-  app.executePHP = function(test, mock, solution, callback) {
-    var script = "<?php\n";
+  app.loadTests = function(language, callback) {
+    app.tests[language] = {count: 0, all: {}};
 
-    script += (test.prep ? test.prep : '');
-    script += (mock ? test.mock_script : test.script);
-    script = script.replace('_SOLUTION_', solution);
-
-    temp.open('test', function(err, info) {
-      fs.writeSync(info.fd, script);
-
-      exec('php -f ' + info.path, {timeout: 1000}, function (error, stdout, stderr) {
-        fs.close(info.fd, function(err) {
-          temp.cleanup();
+    async.waterfall([
+      function(next) {
+        app.loadData('tests', language, function(tests) {
+          next(null, tests);
         });
+      },
+      function(tests, next) {
+        async.each(_.keys(tests), function(level, next_level) {
+          async.each(tests[level], function(code, next_test) {
+            app.tests[language][level] = {};
 
-        stdout = stdout.trim();
+            app.loadData('tests', language, code, function(test) {
+              var partial = {
+                code: code,
+                title: test.title,
+                level: level,
+                language: language,
+              };
 
-        var pass = (mock ? (stdout == test.mocked_result) : (stdout == test.expected_result));
+              app.tests[language].count++;
+              app.tests[language].all[code] = partial;
+              app.tests[language][level][code] = partial;
 
-        if (stderr) {
-          stderr = stderr.replace(/(in \/tmp\/test.+?) /i, '');
-          stderr = stderr.replace(/on line \d+/, '');
-        }
-
-        if (mock && !pass) {
-          error = 'Please don\'t cheat';
-        }
-
-        callback({
-          pass: pass,
-          result: stdout,
-          error: stderr,
-        });
-      });
+              next_test();
+            });
+          }, next_level);
+        }, next);
+      },
+    ], function(err) {
+      callback();
     });
   }
 
-  app.executeJS = function(test, mock, solution, callback) {
-    var script = '';
-    var result = {};
-
-    script += "(function(window, require, phantom) {\n";
-    script += (test.prep ? test.prep : '');
-    script += (mock ? test.mock_script : test.script);
-    script += (test.validation_script ? test.validation_script : '');
-    script += "})({location: ''}, undefined, undefined);\n\nphantom.exit(0);";
-
-    script = script.replace('_SOLUTION_', solution);
-
-    temp.open('test', function(err, info) {
-      fs.writeSync(info.fd, script);
-
-      exec('phantomjs ' + app.dir + '/run.js ' + info.path, {timeout: 1000}, function (error, stdout, stderr) {
-        fs.close(info.fd, function(err) {
-          temp.cleanup();
-        });
-
-        result.result = stdout.trim();
-        result.pass = (mock ? (result.result == test.mocked_result) : (result.result == test.expected_result));
-        result.error = stderr;
-
-        if (mock && !result.pass) {
-          result.error = 'Please don\'t cheat';
-        }
-
-        if (error) {
-          result.error = result.result;
-          result.result = 'No output';
-        }
-
-        callback(result);
-      });
-    });
+  app.listTests = function(language, level) {
+    return _.values(app.tests[language][level]);
   }
-
-  app.getTestCount = function(language) {
-    return _.keys(app.tests[language]).length;
-  }
-
 }
+
+exports.init = function(done) {
+  done();
+};

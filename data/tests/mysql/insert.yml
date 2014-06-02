@@ -1,0 +1,11 @@
+title:
+  Insert query
+requirement: | 
+  Insert the following band to the bands table:
+    name: Kiss
+    active_from: 1973
+sql: |
+  __SOLUTION__
+  SELECT * FROM bands;
+solution:
+  INSERT INTO bands (name, active_from) VALUES ('Kiss', 1973);

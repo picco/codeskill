@@ -1,0 +1,27 @@
+title:
+  References
+requirement: |
+  Define a method increment(), that:
+    accepts a single argument passed as a reference.
+    increments the value of the given argument.
+ident:
+  0
+script: | 
+  $x = 9;
+  _SOLUTION_
+  
+  increment($x);
+  print $x;  
+mock_script: |   
+  $x = 8;
+  _SOLUTION_
+  
+  increment($x);
+  print $x;
+solution: |
+  function increment(&$x) {
+    $x++;
+  }
+cheat: |
+  $x = 10;
+  function increment($x) {}

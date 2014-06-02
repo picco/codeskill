@@ -1,0 +1,12 @@
+languages:
+  php: PHP
+  js: JavaScript
+  mysql: MySQL
+levels:
+  beginner: Beginner
+  intermediate: Intermediate
+  advanced: Advanced
+placeholders:
+  php:  // YOUR PHP CODE HERE
+  js: // YOUR JAVASCRIPT CODE HERE
+  mysql: // YOUR SQL CODE HERE

@@ -1,0 +1,28 @@
+title:
+  Constants
+requirement:
+  Multiply $x by the value of FACTOR.
+ident:
+  1
+script: | 
+  define('FACTOR', 4);  
+  $x = 5;
+  
+  function solution($x) {
+    _SOLUTION_
+  }
+  
+  print solution($x);   
+mock_script: |
+  define('FACTOR', 4);  
+  $x = 3;
+  
+  function solution($x) {
+    _SOLUTION_
+  }
+  
+  print solution($x);   
+solution:
+  return $x * FACTOR;
+cheat:
+  return 20;

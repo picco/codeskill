@@ -1,0 +1,26 @@
+title:
+  Cross site scripting (XSS)
+requirement:
+  Sanitize the input string against cross site scripting (XSS) attacks.
+ident:
+  1
+script: | 
+  $string = "UNSAFE STRING <script>alert('XSS!')</script>";
+  
+  function solution($string) {
+    _SOLUTION_
+  }
+  
+  print solution($string);   
+mock_script: |
+  $string = "UNSAFE STRING <script>alert('EXTRA-XSS!')</script>";
+  
+  function solution($string) {
+    _SOLUTION_
+  }
+  
+  print solution($string); 
+solution:
+  return htmlspecialchars($string);
+cheat:
+  return "UNSAFE STRING &lt;script&gt;alert('XSS!')&lt;/script&gt;";
