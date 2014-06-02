@@ -8,6 +8,6 @@ ident:
   0
 script: |
   _SOLUTION_
-  console.log(person.name);
+  console.log(person.name + ' is ' + person.age);
 solution: |
   var person = {name: 'Peter', age: 33};

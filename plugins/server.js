@@ -54,6 +54,7 @@ exports.attach = function (options) {
           intermediate: app.listTests(req.params.language, 'intermediate'),
           advanced: app.listTests(req.params.language, 'advanced'),
           placeholder: app.server.locals.strings.placeholders[test.language],
+          notice: app.server.locals.strings.notices[test.language],
         });
       }
       else {

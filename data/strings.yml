@@ -10,3 +10,7 @@ placeholders:
   php:  // YOUR PHP CODE HERE
   js: // YOUR JAVASCRIPT CODE HERE
   mysql: // YOUR SQL CODE HERE
+notices:
+  php: If not present, use the print() method to generate the required output.
+  js: If not present, use the console.log() method to generate the required output.
+  mysql: Define an SQL statement to be executed against the dataset given above.

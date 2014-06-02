@@ -12,8 +12,8 @@
   <div class="container">
     <div class="row">
       <div class="col-md-8">
-        <div class="script">
-          <div class="desc head"><h2>Your task</h2>{{test.requirement}}</div>
+        <div class="test">
+          <div class="test-head"><h2>Your task</h2>{{test.requirement}}</div>
           {{#if test.dataset}}
             <div class="dataset">
               {{> dataset test.dataset}}
@@ -31,17 +31,12 @@
             {{/if}}
             <div class="test-status test-status-initial">
               <i class="glyphicon glyphicon-ok"></i> <i class="glyphicon glyphicon-remove"></i>
-              <span class="msg">Correct! It took 03:32 to complete.</span>
+              <span class="msg"></span>
             </div>
           </div>
-          <div class="desc foot">
-            <div class="output-notice">
-              {{#eq test.language 'php'}}
-                <small>If not present, use the print() method to generate the required output.</small>
-              {{/eq}}
-              {{#eq test.language 'js'}}
-                <small>If not present, use the console.log() method to generate the required output.</small>
-              {{/eq}}
+          <div class="test-foot">
+            <div class="output-notice smaller">
+              {{notice}}
             </div>
             <div class="actions">
               <a class="btn btn-sm btn-success btn-test-check"><i class="glyphicon glyphicon-play"></i> Run (CTRL+S)</a>
@@ -49,32 +44,28 @@
             </div>
           </div>
         </div>
-
-<div class="expected panel panel-default">
-  <div class="panel-heading">Expected output</div>
-  {{#if test.expected_table}}
-    {{{test.expected_table}}}
-  {{else}}
-<div class="panel-body">
-                  {{#if test.validation_script}}
-                    <em>No output. Your code will be verified programmatically.</em>
-                  {{else}}
-                    {{test.expected_result}}
-                  {{/if}}
-  </div>
-  {{/if}}
-
-</div>
-
-<div class="actual panel panel-default">
-  <div class="panel-heading">Actual output</div>
-  <div class="panel-body">
-    &nbsp;
-  </div>
-</div>
-
-
-
+        <div class="expected panel panel-default">
+          <div class="panel-heading">Expected result</div>
+          {{#if test.expected_table}}
+            {{{test.expected_table}}}
+          {{else}}
+            <div class="panel-body smaller">
+              {{#if test.validation_script}}
+                <em>No output. Your code will be verified programmatically.</em>
+              {{else}}
+                {{test.expected_result}}
+              {{/if}}
+            </div>
+          {{/if}}
+        </div>
+        {{#unless test.validation_script}}
+          <div class="actual panel panel-default">
+            <div class="panel-heading">Actual result</div>
+            <div class="panel-body smaller">
+              No output
+            </div>
+          </div>
+        {{/unless}}
       </div>
       <div class="col-md-4">
         <ul class="list-group list-group-tests">
@@ -106,7 +97,7 @@
         </ul>
         <ul class="list-group">
           <li class="list-group-item">
-            <h2>Other languages</h2>
+            <h2>Languages</h2>
           </li>
           <a class="list-group-item" href="/tests/php">PHP</a>
           <a class="list-group-item" href="/tests/js">Javascript</a>

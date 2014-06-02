@@ -119,7 +119,7 @@ exports.attach = function (options) {
   }
 
   app.mysql.renderTable = function(result) {
-    var html = '<table class="table table-condensed">';
+    var html = '<table class="table table-condensed smaller">';
 
     for (var i in result.data) {
       html += '<tr>';
