@@ -19,7 +19,7 @@ h1, h2, h3 {
   text-align: center;
   color: #fff;
 }
-.jumbotron h2 {
+.jumbotron h2 span {
   opacity: .7;
 }
 .list-group h2 {

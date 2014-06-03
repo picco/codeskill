@@ -129,7 +129,7 @@ exports.attach = function (options) {
       }
 
       html += '</tr>';
-    };
+    }
 
     return html + '</table>';
   }

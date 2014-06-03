@@ -2,10 +2,13 @@ exports.attach = function (options) {
   var app = this;
   var _ = require('underscore');
   var async = require('async');
+  var cache = require('memory-cache');
   var exec = require('child_process').exec;
   var fs = require('fs');
   var temp = require('temp').track();
   var yaml = require('js-yaml');
+
+  require('console-stamp')(console, 'isoDateTime');
 
   app.conf = require("config");
   app.dir = fs.realpathSync(__dirname + '/..');
@@ -32,18 +35,28 @@ exports.attach = function (options) {
   }
 
   app.loadTest = function(language, code, callback) {
+    var key = 'test:' + language + ':' + code;
+    console.log('asd');
     if (app.tests[language].all[code]) {
-      app.loadData('tests', language, code, function(data) {
-        var test = _.extend(data, app.tests[language].all[code]);
+      if (cache.get(key)) {
+        callback(cache.get(key));
+      }
+      else {
+        app.loadData('tests', language, code, function(data) {
+          var test = _.extend(data, app.tests[language].all[code]);
 
-        if (test.script) {
-          var matches = /([\s\S]*)_SOLUTION_([\s\S]*)/g.exec(test.script);
-          test.script_head = matches[1].trim();
-          test.script_foot = matches[2].trim();
-        }
+          if (test.script) {
+            var matches = /([\s\S]*)_SOLUTION_([\s\S]*)/g.exec(test.script);
+            test.script_head = matches[1].trim();
+            test.script_foot = matches[2].trim();
+          }
 
-        app[language].extend(test, callback);
-      });
+          app[language].extend(test, function(test) {
+            cache.put(key, test);
+            callback(test);
+          });
+        });
+      }
     }
     else {
       callback(null);
@@ -92,5 +105,6 @@ exports.attach = function (options) {
 }
 
 exports.init = function(done) {
+  process.setuid(this.conf.uid);
   done();
 };

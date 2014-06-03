@@ -97,6 +97,6 @@ exports.attach = function (options) {
 }
 
 exports.init = function(done) {
-  require('http').createServer(this.server).listen(80);
+  require('http').createServer(this.server).listen(8080);
   done();
 }
