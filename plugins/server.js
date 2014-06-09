@@ -36,12 +36,8 @@ exports.attach = function (options) {
   });
 
   app.server.get('/tests/:language', function(req, res) {
-    res.render('tests', {
-      language: req.params.language,
-      beginner: app.listTests(req.params.language, 'beginner'),
-      intermediate: app.listTests(req.params.language, 'intermediate'),
-      advanced: app.listTests(req.params.language, 'advanced'),
-    });
+    var tests = app.listTests(req.params.language);
+    res.redirect('/test/' + req.params.language + '/' + tests[0].code);
   });
 
   app.server.get('/test/:language/:code', function(req, res) {
@@ -50,9 +46,7 @@ exports.attach = function (options) {
         res.render('test', {
           test: test,
           language: req.params.language,
-          beginner: app.listTests(req.params.language, 'beginner'),
-          intermediate: app.listTests(req.params.language, 'intermediate'),
-          advanced: app.listTests(req.params.language, 'advanced'),
+          tests: app.listTests(req.params.language),
           placeholder: app.server.locals.strings.placeholders[test.language],
           notice: app.server.locals.strings.notices[test.language],
         });
@@ -63,6 +57,7 @@ exports.attach = function (options) {
     });
   });
 
+  /*
   app.server.get('/solve/:language/:code', function(req, res) {
     app.loadTest(req.params.language, req.params.code, function(test) {
       if (test) {
@@ -73,6 +68,7 @@ exports.attach = function (options) {
       }
     });
   });
+  */
 
   app.server.post('/execute', function(req, res) {
     app.loadTest(req.body.language, req.body.code, function(test) {

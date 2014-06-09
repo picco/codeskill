@@ -2,8 +2,8 @@ title:
   References
 requirement: |
   Define a method increment(), that:
-    accepts a single argument passed as a reference.
-    increments the value of the given argument.
+    - accepts a single argument passed as a reference,
+    - increments the value of it.
 ident:
   0
 script: | 

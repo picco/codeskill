@@ -66,6 +66,7 @@ h1, h2, h3 {
 /* Test listing */
 
 .table-tests {
+  margin: 1em 0;
   font-size: 12px;
 }
 
@@ -81,12 +82,6 @@ h1, h2, h3 {
 .actual .table,
 .actual .panel-body {
   font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
-}
-.ident-1 {
-  padding-left: 2em;
-}
-.ident-2 {
-  padding-left: 4em;
 }
 .test {
   border: 1px solid #ddd;
@@ -151,6 +146,13 @@ h1, h2, h3 {
   tab-size: 2;
   resize: none;
   background: none;
+  white-space: pre-wrap;
+}
+.script-solution .ident-1 {
+  padding-left: 2em;
+}
+.script-solution .ident-2 {
+  padding-left: 4em;
 }
 .script-head {
   border-top: 1px solid #ddd;
@@ -180,5 +182,8 @@ h1, h2, h3 {
   margin: 1em 0;
 }
 .actual {
+  margin: 1em 0;
+}
+.languages {
   margin: 1em 0;
 }

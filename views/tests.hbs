@@ -16,46 +16,18 @@
           <li class="{{#eq language 'mysql'}}active{{/eq}}"><a href="/tests/mysql">MySQL</a></li>
         </ul>
       </div>
-      <div class="col-md-4">
-        <table class="table table-tests">
-        <thead>
-          <th><h2>Beginner</h2></th>
-        </thead>
-        <tbody>
-          {{#beginner}}
-            <tr>
-              <td><a href="/test/{{../language}}/{{code}}">{{@index}}. {{title}}</a></td>
-            </tr>
-          {{/beginner}}
-        </tbody>
-        </table>
-      </div>
 
-      <div class="col-md-4">
+      <div class="col-md-12">
         <table class="table table-tests">
         <thead>
-          <th><h2>Intermediate</h2></th>
+          <th>Test</th>
         </thead>
         <tbody>
-          {{#intermediate}}
+          {{#tests}}
             <tr>
               <td><a href="/test/{{../language}}/{{code}}">{{@index}}. {{title}}</a></td>
             </tr>
-          {{/intermediate}}
-        </tbody>
-        </table>
-      </div>
-      <div class="col-md-4">
-        <table class="table table-tests">
-        <thead>
-          <th><h2>Advanced</h2></th>
-        </thead>
-        <tbody>
-          {{#advanced}}
-            <tr>
-              <td><a href="/test/{{../language}}/{{code}}">{{@index}}. {{title}}</a></td>
-            </tr>
-          {{/advanced}}
+          {{/tests}}
         </tbody>
         </table>
       </div>

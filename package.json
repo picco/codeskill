@@ -8,6 +8,7 @@
     "express-hbs": "^0.7.10",
     "js-yaml": "^3.0.2",
     "memory-cache": "0.0.5",
+    "must": "^0.12.0",
     "mysql": "^2.3.2",
     "temp": "^0.8.0",
     "underscore": "^1.6.0",

@@ -58,21 +58,12 @@ function loadTests(language) {
   return yaml.load(fs.readFileSync(app.dir + '/data/tests/' + language + '.yml', {encoding: 'utf-8'}));
 }
 
-app.init(function (err) {
-  if (err) console.error(err);
+async.each(['php', 'js', 'mysql'], function(language, next_language) {
+  async.each(loadTests(language), function(code, next_test) {
+    runTests(language, code, next_test);
+  }), next_language;
 });
 
-var languages = ['php', 'js', 'mysql'];
-
-async.each(languages, function(language, next_language) {
-  var tests = loadTests(language);
-
-  async.each(_.keys(tests), function(level, next_level) {
-
-    async.each(tests[level], function(code, next_test) {
-      runTests(language, code, next_test);
-    }, next_level);
-
-  }), next_language;
-
+app.init(function (err) {
+  if (err) console.error(err);
 });

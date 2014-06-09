@@ -1,21 +1,23 @@
-beginner:
-  - constants
-  - logical_operators
-  - control_structures
-  - functions
-  - variable_scope
-  - static_variables
-  - type_juggling
-  - references
-  - oop_class_instances
-  - oop_static
-  - predefined_variables
-  - exceptions
-  - regular_expressions
-  - xss
-intermediate:
-  - mathematical_functions
-  - array_functions
-  - date_functions
-  - oop_constructor
-  - oop_extending
+- constants
+- logical_operators
+- control_structures
+- functions
+- variable_functions  
+- variable_scope
+- static_variables
+- type_juggling
+- references
+- string_concatenation
+- oop_class_instances
+- oop_static
+- namespaces  
+- predefined_variables
+- exceptions
+- regular_expressions
+- xss
+- function_arguments
+- mathematical_functions
+- array_functions
+- date_functions
+- oop_constructor
+- oop_extending

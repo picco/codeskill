@@ -42,7 +42,7 @@ function submitSolution() {
         $('.actual .panel-table').show();
       }
       else {
-        $('.actual .panel-body').text(data.result ? data.result : 'No output');
+        $('.actual .panel-body').text(data.result ? data.result : 'No output.');
         $('.actual .panel-body').show();
       }
 

@@ -25,7 +25,7 @@ exports.attach = function (options) {
 
     fs.readFile(app.dir + '/data/' + path + '.yml', {encoding: 'utf-8'}, function(err, data) {
       if (err) {
-        console.error(err);
+        console.error(err.toString());
         callback(null);
       }
       else {
@@ -36,14 +36,14 @@ exports.attach = function (options) {
 
   app.loadTest = function(language, code, callback) {
     var key = 'test:' + language + ':' + code;
-    console.log('asd');
-    if (app.tests[language].all[code]) {
+
+    if (app.tests[language]._all[code]) {
       if (cache.get(key)) {
         callback(cache.get(key));
       }
       else {
         app.loadData('tests', language, code, function(data) {
-          var test = _.extend(data, app.tests[language].all[code]);
+          var test = _.extend(data, app.tests[language]._all[code]);
 
           if (test.script) {
             var matches = /([\s\S]*)_SOLUTION_([\s\S]*)/g.exec(test.script);
@@ -64,7 +64,7 @@ exports.attach = function (options) {
   }
 
   app.loadTests = function(language, callback) {
-    app.tests[language] = {count: 0, all: {}};
+    app.tests[language] = {_count: 0, _all: {}};
 
     async.waterfall([
       function(next) {
@@ -73,25 +73,23 @@ exports.attach = function (options) {
         });
       },
       function(tests, next) {
-        async.each(_.keys(tests), function(level, next_level) {
-          async.each(tests[level], function(code, next_test) {
-            app.tests[language][level] = {};
+        async.each(tests, function(code, next_test) {
 
-            app.loadData('tests', language, code, function(test) {
+          app.loadData('tests', language, code, function(test) {
+            if (test) {
               var partial = {
                 code: code,
                 title: test.title,
-                level: level,
                 language: language,
               };
 
-              app.tests[language].count++;
-              app.tests[language].all[code] = partial;
-              app.tests[language][level][code] = partial;
+              app.tests[language]._count++;
+              app.tests[language]._all[code] = partial;
+              app.tests[language][code] = partial;
+            }
+            next_test();
+          });
 
-              next_test();
-            });
-          }, next_level);
         }, next);
       },
     ], function(err) {
@@ -100,7 +98,7 @@ exports.attach = function (options) {
   }
 
   app.listTests = function(language, level) {
-    return _.values(app.tests[language][level]);
+    return _.values(app.tests[language]._all);
   }
 }
 
