@@ -1,0 +1,26 @@
+title:
+  'Control structures: For loop'
+requirement:
+  Sum all integers from <em>start</em> to <em>end</em> (included) and print the result.
+ident:
+  0
+script: |
+  start = 1;
+  end = 3;
+  
+  _SOLUTION_
+mock_script: |
+  start = 1;
+  end = 4;
+  
+  _SOLUTION_
+solution: |
+  var sum = 0;
+  
+  for (i = start; i <= end; i++) {
+    sum += i;
+  }
+  
+  console.log(sum);
+cheat:
+  console.log(6);

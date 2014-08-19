@@ -1,0 +1,13 @@
+title:
+  Defining functions
+requirement: |
+  Define a function "add" that takes two arguments and returns the sum of given arguments.
+ident:
+  0
+script: |
+  _SOLUTION_
+  console.log(add(1, 9));
+solution: |
+  function add(a, b) {
+    return a + b;
+  }

@@ -1,0 +1,26 @@
+title:
+  Math
+requirement:
+  Given a radius, calculate area of a circle.
+ident:
+  1
+script: | 
+  radius = 5.9;
+  
+  function circle_area(radius) {
+    _SOLUTION_
+  }
+  
+  console.log(circle_area(radius));
+mock_script: |
+  radius = 7.3;
+  
+  function circle_area(radius) {
+    _SOLUTION_
+  }
+  
+  console.log(circle_area(radius));
+solution:
+  return Math.PI * Math.pow(radius, 2);
+cheat:
+  return 109.35884027146;
