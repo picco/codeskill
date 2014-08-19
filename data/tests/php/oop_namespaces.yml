@@ -1,5 +1,5 @@
 title:
-  'OOP: Namespaces'
+  Namespaces
 requirement: |
   Call the thanks() method from the British namespace.
 ident:

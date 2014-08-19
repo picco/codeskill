@@ -1,5 +1,5 @@
 title:
-  'OOP: Constructor'
+  Constructor
 requirement:
   Add a constructor method to the class which sets the "name" property when instatiationg a new object of class "Person".
 ident:

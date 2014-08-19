@@ -1,5 +1,5 @@
 title:
-  'OOP: Class instances'
+  Class instances
 requirement:
   Create an instance of a Person and print the value of it's name attribute.
 ident:

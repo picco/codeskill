@@ -1,5 +1,5 @@
 title:
-  'Exceptions: Throwing exceptions'
+  Throwing exceptions
 requirement: |
   Divide $x and $y by calling divide() and print the result.
   Add error checking so that:

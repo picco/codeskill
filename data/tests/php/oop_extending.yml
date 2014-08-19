@@ -1,5 +1,5 @@
 title:
-  'OOP: Extending a class'
+  Extending a class
 requirement:
    Define a new "ExtendedPerson" class that extends the existing "Person" class with setName() and getName() methods.
 ident:

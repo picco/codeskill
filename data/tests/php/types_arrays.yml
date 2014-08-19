@@ -1,5 +1,5 @@
 title:
-  'Types: Arrays'
+  Arrays
 requirement:
   Sort the people by name and return as a comma separated string.
 ident:

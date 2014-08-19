@@ -1,5 +1,5 @@
 title:
-  'Internal functions: Array functions'
+  Array functions
 requirement:
   Sort the people by name and return as a comma separated string.
 ident:

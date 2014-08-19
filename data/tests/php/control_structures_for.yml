@@ -1,5 +1,5 @@
 title:
-  'Control structures: For loop'
+  For loop
 requirement:
   Sum all integers from $start to $end (included) and print the result.
 ident:

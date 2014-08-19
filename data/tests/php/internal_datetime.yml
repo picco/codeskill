@@ -1,5 +1,5 @@
 title:
-  'Internal functions: Date and time'
+  Date and time functions
 requirement:
   Calculate what was the day of the week on a given date.
 ident:

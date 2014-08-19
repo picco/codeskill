@@ -1,5 +1,5 @@
 title:
-  'Functions: Variable functions'
+  Variable functions
 requirement: |
   Call the function given in $fn.
 ident:

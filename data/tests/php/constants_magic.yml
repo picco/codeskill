@@ -1,5 +1,5 @@
 title:
-  'Constants: Magic constants'
+  Magic constants
 requirement:
   Multiply $x by the value of FACTOR.
 ident:

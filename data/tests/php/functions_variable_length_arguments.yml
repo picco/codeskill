@@ -1,5 +1,5 @@
 title:
-  'Functions: Variable-length argument lists'
+  Variable-length argument lists
 requirement: |
   Define a function sum(), that:
     - accepts unlimited amount of arguments

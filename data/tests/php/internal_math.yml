@@ -1,5 +1,5 @@
 title:
-  'Internal functions: Mathematical'
+  Math functions
 requirement:
   Given a radius, calculate area of a circle.
 ident:

@@ -1,5 +1,5 @@
 title:
-  'OOP: Static methods'
+  Static object methods
 requirement:
    Call the static whoAreYou() method on a Person class and print the result.
 ident:
