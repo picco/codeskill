@@ -1,5 +1,5 @@
 title:
-  Logical operators
+  'Operators: Logical operators'
 requirement: |
   Script should print "Go outside" only if:
     it is NOT raining AND it is warm OR it is daytime.

@@ -1,5 +1,5 @@
 title:
-  Cross site scripting (XSS)
+  'Security: Cross site scripting (XSS)'
 requirement:
   Sanitize the input string against cross site scripting (XSS) attacks.
 ident:

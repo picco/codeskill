@@ -1,5 +1,5 @@
 title:
-  References
+  'Functions: Passing arguments by reference'
 requirement: |
   Define a method increment(), that:
     - accepts a single argument passed as a reference,

@@ -1,0 +1,46 @@
+title:
+  'OOP: Namespaces'
+requirement: |
+  Call the thanks() method from the British namespace.
+ident:
+  0
+script: |
+  namespace British;
+  
+  class Words {
+    public static function sayThanks() {
+      print "Cheers!";
+    }
+  }
+
+  namespace American;
+
+  class Words {
+    public static function sayThanks() {
+      print "Thanks!";
+    }
+  }
+
+  _SOLUTION_
+mock_script: |
+  namespace British;
+  
+  class Words {
+    public static function sayThanks() {
+      print "British!";
+    }
+  }
+
+  namespace American;
+
+  class Words {
+    public static function sayThanks() {
+      print "American!";
+    }
+  }
+
+  _SOLUTION_
+solution:
+  \British\Words::sayThanks();
+cheat:
+  print "Cheers!";

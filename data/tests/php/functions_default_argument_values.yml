@@ -1,5 +1,5 @@
 title:
-  Functions
+  'Functions: Default argument values'
 requirement: |
   Define a function multiply(), that:
     accepts arguments $width and $height (defaults to 10)

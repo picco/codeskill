@@ -1,5 +1,5 @@
 title:
-  Variable scope
+  'Variables: Global scope'
 requirement: |
   Return the value of $x defined in the global scope.
 ident:

@@ -1,0 +1,20 @@
+title:
+  'Functions: Variable-length argument lists'
+requirement: |
+  Define a function sum(), that:
+    - accepts unlimited amount of arguments
+    - sums the values of the arguments and returns the result
+ident:
+  0
+script: |
+  $number1 = 3;
+  $number2 = 27;
+  $number3 = 12;
+
+  _SOLUTION_
+  
+  print sum($number1, $number2, $number3);
+solution: |
+  function sum() {
+    return array_sum(func_get_args());
+  }

@@ -1,0 +1,17 @@
+title:
+  'Types: Strings'
+requirement:
+  Format the quote so that it would match the expected result given below.
+ident:
+  1
+script: | 
+  $quote = 'May the Force be with you';
+  $movie = 'Star Wars';
+
+  function format_quote($quote, $movie) {
+    _SOLUTION_  
+  }
+
+  print format_quote($quote, $movie);
+solution: |
+  return 'The quote "' . $quote . '" is from ' . $movie;

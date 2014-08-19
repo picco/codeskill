@@ -1,0 +1,17 @@
+title:
+  'Variables: Static variables'
+requirement:
+  Define a method timescalled() that returns the number of times it has been called.
+ident:
+  0
+script: | 
+  _SOLUTION_
+  
+  print timescalled();
+  print timescalled();
+  print timescalled();
+solution: |
+  function timescalled() {
+    static $counter;
+    return ++$counter;
+  }

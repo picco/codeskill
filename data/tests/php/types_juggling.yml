@@ -1,5 +1,5 @@
 title:
-  Type juggling
+  'Types: Type juggling'
 requirement:
   Convert variable types so that the check would pass.
 ident:

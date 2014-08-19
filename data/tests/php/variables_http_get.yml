@@ -1,5 +1,5 @@
 title:
-  Predefined variables
+  'Variables: HTTP GET variables'
 requirement: |
   Print the value of an URL parameter "x" assuming the script is called from:
     http://server/script.php?x=Hello

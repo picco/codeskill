@@ -1,0 +1,45 @@
+title:
+  'Exceptions: Catching exceptions'
+requirement: |
+  Divide $x and $y by calling divide() and print the result.
+  Add error checking so that:
+    if an exception occurs in divide() print the exception message ("Division by zero.").
+ident:
+  0
+script: |  
+  $x = 5;
+  $y = 0;
+   
+  function divide($x, $y) {
+    if ($y == 0) {
+      throw new Exception('Division by zero.');    
+    }
+    else {
+      return $x / $y;
+    }
+  }
+  
+  _SOLUTION_    
+mock_script: |
+  $x = 9;
+  $y = 0;
+   
+  function divide($x, $y) {
+    if ($y == 0) {
+      throw new Exception('Other message.');    
+    }
+    else {
+      return $x / $y;
+    }
+  }
+  
+  _SOLUTION_    
+solution: |
+  try {
+    print divide($x, $y);
+  }
+  catch (Exception $e) {
+    print $e->getMessage();
+  }
+cheat: |
+  print 'Division by zero.';

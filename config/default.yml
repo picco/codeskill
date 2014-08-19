@@ -1,0 +1,12 @@
+uid: 1000
+mysql:
+  host: localhost
+  user: csro
+  password: hLmcLVSGPezuT3BD
+  database: cs_bands
+mysql_exec:
+  host: localhost
+  user: csro
+  password: hLmcLVSGPezuT3BD
+  database: cs_bands
+  multipleStatements: Yes

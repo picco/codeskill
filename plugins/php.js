@@ -44,7 +44,7 @@ exports.attach = function (options) {
     temp.open('test', function(err, info) {
       fs.writeSync(info.fd, script);
 
-      exec('php -f ' + info.path, {timeout: 1000}, function (error, stdout, stderr) {
+      exec('php -c /etc/php5/cli/php-sandbox.ini -f ' + info.path, {timeout: 1000}, function (error, stdout, stderr) {
         fs.close(info.fd, function(err) {
           temp.cleanup();
         });

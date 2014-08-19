@@ -1,0 +1,44 @@
+title:
+  'Functions: Variable functions'
+requirement: |
+  Call the function given in $fn.
+ident:
+  1
+script: | 
+  function a() {
+    print 'a';
+  }
+  
+  function b() {
+    print 'b';
+  }
+  
+  function c() {
+    print 'c';
+  }
+  
+  function print_an($fn) {
+    _SOLUTION_
+  }
+  
+  print_an('a');
+mock_script: |
+  function a() {
+    print 'aa';
+  }
+  
+  function b() {
+    print 'bb';
+  }
+  
+  function c() {
+    print 'cc';
+  }
+  
+  function print_an($fn) {
+    _SOLUTION_
+  }
+  
+  print_an('a');  
+solution:
+  $fn();

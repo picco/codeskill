@@ -57,7 +57,6 @@ exports.attach = function (options) {
     });
   });
 
-  /*
   app.server.get('/solve/:language/:code', function(req, res) {
     app.loadTest(req.params.language, req.params.code, function(test) {
       if (test) {
@@ -68,7 +67,6 @@ exports.attach = function (options) {
       }
     });
   });
-  */
 
   app.server.post('/execute', function(req, res) {
     app.loadTest(req.body.language, req.body.code, function(test) {
@@ -93,6 +91,6 @@ exports.attach = function (options) {
 }
 
 exports.init = function(done) {
-  require('http').createServer(this.server).listen(8080);
+  require('http').createServer(this.server).listen(8081);
   done();
 }
