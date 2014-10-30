@@ -68,6 +68,10 @@ exports.attach = function (options) {
     });
   });
 
+  app.server.get('/drupal/interview-questions', function(req, res) {
+    res.render('drupal-interview-questions');
+  });
+
   app.server.post('/execute', function(req, res) {
     app.loadTest(req.body.language, req.body.code, function(test) {
       if (test) {

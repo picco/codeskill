@@ -6,7 +6,9 @@
 .smaller {
   font-size: 12px;
 }
-
+.disabled {
+  opacity: .5;
+}
 /* Overrides */
 
 h1, h2, h3 {
