@@ -12,7 +12,8 @@
     "mysql": "^2.3.2",
     "temp": "^0.8.0",
     "underscore": "^1.6.0",
-    "winston": "^0.7.3"
+    "winston": "^0.7.3",
+    "console-stamp": "^0.2.5"
   },
   "scripts": {
     "iptables": "sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080",
