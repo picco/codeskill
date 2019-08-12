@@ -1,12 +1,11 @@
 uid: 1000
 mysql:
   host: localhost
-  user: csro
-  password: hLmcLVSGPezuT3BD
-  database: cs_bands
+  user: root
+  password: root
+  multipleStatements: Yes  
 mysql_exec:
   host: localhost
-  user: csro
-  password: hLmcLVSGPezuT3BD
-  database: cs_bands
+  user: root
+  password: root
   multipleStatements: Yes

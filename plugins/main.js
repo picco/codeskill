@@ -16,7 +16,7 @@ exports.attach = function (options) {
 
   app.use(require('./php.js'));
   app.use(require('./javascript.js'));
-  //app.use(require('./mysql.js'));
+  app.use(require('./mysql.js'));
 
   app.loadData = function() {
     var args = Array.prototype.slice.call(arguments);

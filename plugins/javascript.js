@@ -46,7 +46,7 @@ exports.attach = function (options) {
     temp.open('test', function(err, info) {
       fs.writeSync(info.fd, script);
 
-      exec('phantomjs ' + app.dir + '/run.js ' + info.path, {timeout: 1000}, function (error, stdout, stderr) {
+      exec('./node_modules/phantomjs-prebuilt/bin/phantomjs ' + app.dir + '/run.js ' + info.path, {timeout: 1000}, function (error, stdout, stderr) {
         fs.close(info.fd, function(err) {
           temp.cleanup();
         });
@@ -60,6 +60,7 @@ exports.attach = function (options) {
         }
 
         if (error) {
+          console.log(error);
           result.error = result.result;
           result.result = 'No output';
         }

@@ -33,6 +33,15 @@ exports.attach = function (options) {
     },
   ];
 
+  app.mysql.read.query('START TRANSACTION;DROP DATABASE IF EXISTS cs_bands;CREATE DATABASE cs_bands;USE cs_bands;' + app.mysql.reset_sql + 'COMMIT;', function(err, response) {
+    if (err) {
+      console.log(err);
+    }
+    else {
+      console.log("Database imported");
+    }
+  });
+
   app.mysql.extend = function(test, callback) {
     async.series([
       function(next) {

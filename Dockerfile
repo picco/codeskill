@@ -1,6 +1,6 @@
 FROM node:8-stretch
 
-WORKDIR /usr/src/app
+WORKDIR /srv
 
 RUN apt-get update && apt-get install -y \
   apt-utils \
@@ -11,10 +11,7 @@ RUN apt-get update && apt-get install -y \
   php-cli \
   && rm -rf /var/lib/apt/lists/*
 
-RUN git clone https://github.com/meelis82/codeskill.git /usr/src/app
-
+COPY . .
 RUN npm install
-
-EXPOSE 8081
-
-CMD [ "nodejs", "app.js" ]
+EXPOSE 8080
+CMD [ "node", "app.js" ]
