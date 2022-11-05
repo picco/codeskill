@@ -6,7 +6,7 @@
     "config": "^0.4.36",
     "console-stamp": "^0.2.5",
     "express": "^4.4.1",
-    "express-hbs": "^0.7.10",
+    "express-hbs": "^2.4.0",
     "js-yaml": "^3.0.2",
     "memory-cache": "0.0.5",
     "must": "^0.12.0",
